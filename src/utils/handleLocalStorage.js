@@ -1,14 +1,15 @@
-const setLocalStorage = (key, value) => {
-  let existing = localStorage.getItem(key);
-
-  existing = existing ? existing.split(",") : [];
-  existing.push(value);
-  localStorage.setItem(key, existing.toString());
-
-  existing.forEach((element) => {
-    console.log(element);
-  });
+const getLocalStorage = (key) => {
+  return JSON.parse(localStorage.getItem(key));
 };
 
-export default setLocalStorage;
- 
+const setLocalStorage = (key, value) => {
+  const existing = getLocalStorage(key);
+  if (existing) {
+    existing.push(value);
+    localStorage.setItem(key, JSON.stringify(existing));
+  } else {
+    localStorage.setItem(key, JSON.stringify([value]));
+  }
+};
+
+export { getLocalStorage, setLocalStorage };
