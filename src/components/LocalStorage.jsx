@@ -1,33 +1,33 @@
-import React, { useState }  from 'react'
+import React, { useState, useRef } from "react";
+import setLocalStorage from "../utils/handleLocalStorage";
 
 const LocalStorage = () => {
-  
-	const [localData, setLocalData] = useState(() => {
-		const saved = localStorage.getItem("name");
-		const initialValue = JSON.parse(saved);
-  		return initialValue || "";
-	});
+  const nameInputRef = useRef();
+  const skillsInputRef = useRef();
 
-	const inputHandler = (event) => {
-		event.preventDefault();
-		setLocalData(event.target.value);
-	}
-	const saveHandler = (event) => {
-		// event.preventDefault();
-		localStorage.setItem("name", JSON.stringify(localData));
-	}
+  const saveNameHandler = (event) => {
+    event.preventDefault();
+    setLocalStorage("name", nameInputRef.current.value);
+  };
+  const saveSkillHandler = (event) => {
+    event.preventDefault();
+    setLocalStorage("skills", skillsInputRef.current.value);
+  };
 
-	return (
-		
-		<div>
-			<h1>Hello {localStorage.getItem("name") || "you"}!</h1>
-		<form>
-		<input type="text" placeholder="Your name" onChange={inputHandler}/>
-		<input type="submit" value="Save" onClick={saveHandler}></input>
-	  </form>
-	  
-	  </div>
-  )
+  return (
+    <div>
+      <h2>Hello {localStorage.getItem("name") || "you"}</h2>
+      <form>
+        <input type="text" placeholder="Your name" ref={nameInputRef} />
+        <input type="submit" value="Save" onClick={saveNameHandler}></input>
+      </form>
+      <h2>Your skill: {localStorage.getItem("skills")}</h2>
+      <form>
+        <input type="text" placeholder="Add a skill" ref={skillsInputRef} />
+        <input type="submit" value="Add" onClick={saveSkillHandler}></input>
+      </form>
+    </div>
+  );
 };
 
-export default LocalStorage
+export default LocalStorage;
