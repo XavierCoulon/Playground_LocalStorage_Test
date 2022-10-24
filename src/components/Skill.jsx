@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   setLocalStorage,
   getLocalStorage,
@@ -6,9 +6,11 @@ import {
 } from "../utils/handleLocalStorage";
 
 const Skill = (props) => {
-  const [isFavorite, setIsFavorite] = useState(
-    getLocalStorage("favorite").includes(props.skill)
-  );
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    setIsFavorite(getLocalStorage("favorite").includes(props.skill));
+  },[props.skill]);
 
   const handleClickFavorite = () => {
     isFavorite
