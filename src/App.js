@@ -1,14 +1,10 @@
-
-import './App.css';
-import LocalStorage from "./components/LocalStorage.jsx"
+import "./App.css";
+import SkillsList from "./components/SkillsList"
 
 const App = () => {
-  return (
-    <div className="App">
-      <LocalStorage />
-    </div>
-    
-  );
-}
+  return <div className="App">
+    <SkillsList/>
+  </div>;
+};
 
 export default App;
