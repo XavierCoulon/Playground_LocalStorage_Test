@@ -9,8 +9,12 @@ const Skill = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    setIsFavorite(getLocalStorage("favorite").includes(props.skill));
-  },[props.skill]);
+    if (
+      getLocalStorage("favorite") &&
+      getLocalStorage("favorite").includes(props.skill)
+    )
+      setIsFavorite(true);
+  }, [props.skill]);
 
   const handleClickFavorite = () => {
     isFavorite

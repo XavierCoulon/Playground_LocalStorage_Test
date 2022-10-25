@@ -19,7 +19,7 @@ const LocalStorage = () => {
         <input type="text" placeholder="Add a skill" ref={skillsInputRef} />
         <input type="submit" value="Add" onClick={saveSkillHandler}></input>
       </form>
-      <h2>Your skill(s):</h2>
+      <h2>Your skill(s), stored in LocalStorage 😉</h2>
       
         {skills &&
           skills.map((skill) => <Skill key={Math.random()} skill={skill} />)}
