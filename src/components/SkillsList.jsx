@@ -1,15 +1,15 @@
 import React, { useState, useRef, Fragment } from "react";
-import { setLocalStorage, getLocalStorage } from "../utils/handleLocalStorage";
+import { storage } from "../utils/handleLocalStorage";
 import Skill from "./Skill";
 
 const LocalStorage = () => {
   const skillsInputRef = useRef();
-  const [skills, setSkills] = useState(getLocalStorage("skills"));
+  const [skills, setSkills] = useState(storage.get("skills"));
 
   const saveSkillHandler = (event) => {
     event.preventDefault();
-    setLocalStorage("skills", skillsInputRef.current.value);
-    setSkills(getLocalStorage("skills"));
+    storage.set("skills", skillsInputRef.current.value);
+    setSkills(storage.get("skills"));
     skillsInputRef.current.value = "";
   };
 
@@ -20,10 +20,9 @@ const LocalStorage = () => {
         <input type="submit" value="Add" onClick={saveSkillHandler}></input>
       </form>
       <h2>Your skill(s), stored in LocalStorage 😉</h2>
-      
-        {skills &&
-          skills.map((skill) => <Skill key={Math.random()} skill={skill} />)}
-      
+
+      {skills &&
+        skills.map((skill) => <Skill key={Math.random()} skill={skill} />)}
     </Fragment>
   );
 };

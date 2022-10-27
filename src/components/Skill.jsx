@@ -1,25 +1,21 @@
 import React, { Fragment, useState, useEffect } from "react";
-import {
-  setLocalStorage,
-  getLocalStorage,
-  removeItemLocalStorage,
-} from "../utils/handleLocalStorage";
+import { storage } from "../utils/handleLocalStorage";
 
 const Skill = (props) => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     if (
-      getLocalStorage("favorite") &&
-      getLocalStorage("favorite").includes(props.skill)
+      storage.get("favorite") &&
+      storage.get("favorite").includes(props.skill)
     )
       setIsFavorite(true);
   }, [props.skill]);
 
   const handleClickFavorite = () => {
     isFavorite
-      ? removeItemLocalStorage("favorite", props.skill)
-      : setLocalStorage("favorite", props.skill);
+      ? storage.remove("favorite", props.skill)
+      : storage.set("favorite", props.skill);
 
     setIsFavorite((state) => !state);
   };
